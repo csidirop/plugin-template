@@ -2,6 +2,12 @@
 
 class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
 {
+    /**
+     * @var array Hooks for the plugin.
+     * 
+     * An array of hooks that this plugin will listen to. Each hook is a string
+     * representing an event in Omeka's plugin architecture.
+     */
     protected $_hooks = [
         'install',
         'uninstall',
@@ -11,18 +17,45 @@ class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
     ];
 
     /**
-     * Install the plugin.
+     *  Hooks in the proccess of installing the plugin.
+     *  Here we can set options or create db tables or more.
      */
     public function hookInstall(): void
     {
+        // Add some options:
         set_option('template_option', 'Default Value');
+
+        try {
+            // Create a custom database table:
+            $sql = "
+                CREATE TABLE IF NOT EXISTS `{$this->_db->Template}` (
+                    `id` INT AUTO_INCREMENT PRIMARY KEY,
+                    `name` VARCHAR(255) NOT NULL,
+                    `description` TEXT NULL,
+                    `added` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+            ";
+            $this->_db->query($sql);
+        } catch(Exception $e) {
+            throw $e;
+        }
     }
 
     /**
-     * Uninstall the plugin.
+     *  Hooks in the proccess of uninstalling the plugin.
+     *  Here we can undo what we initialized in hookInstall()
      */
     public function hookUninstall(): void
     {
+        // Drop the custom database table:
+        try {
+            $sql = "DROP TABLE IF EXISTS `{$this->_db->Template}`;";
+            $this->_db->query($sql);
+        } catch(Exception $e) {
+            throw $e;
+        }
+
+        // Delete the plugin option:
         delete_option('template_option');
     }
 
@@ -54,9 +87,9 @@ class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
             new Zend_Controller_Router_Route(
                 'template/index',
                 [
-                    'module'     => 'default',
+                    'module' => 'default',
                     'controller' => 'template',
-                    'action'     => 'index',
+                    'action' => 'index',
                 ]
             )
         );

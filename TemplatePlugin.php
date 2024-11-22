@@ -13,7 +13,7 @@ class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
         'uninstall',
         'config',
         'config_form',
-        'define_routes'
+        // 'define_routes'
     ];
 
     /**
@@ -76,22 +76,59 @@ class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
         set_option('template_option', $option);
     }
 
-    /**
-     * Define custom routes.
-     */
-    public function hookDefineRoutes($args): void
-    {
-        $router = $args['router'];
-        $router->addRoute(
-            'template_admin',
-            new Zend_Controller_Router_Route(
-                'template/index',
-                [
-                    'module' => 'default',
-                    'controller' => 'template',
-                    'action' => 'index',
-                ]
-            )
-        );
-    }
+
+    // /**
+    //  * Define custom routes.
+    //  */
+    // public function hookDefineRoutes($args): void
+    // {
+    //     $router = $args['router'];
+    //     $router->addRoute(
+    //         'template_admin',
+    //         new Zend_Controller_Router_Route(
+    //             'template/index',
+    //             [
+    //                 'module' => 'default',
+    //                 'controller' => 'template',
+    //                 'action' => 'index',
+    //             ]
+    //         )
+    //     );
+    // }
+
+
+    /*
+        Some commonly used hooks:
+            hookAdminCollectionsShow
+            hookAdminFooter
+            hookAdminHead
+            hookAdminItemsBatchEditForm
+            hookAdminItemsBrowseSimpleEach
+            hookAdminItemsSearch
+            hookAdminItemsShow
+            hookAdminItemsShowSidebar
+            hookAfterDeleteItem
+            hookAfterSaveItem
+            hookBeforeSaveItem
+            hookCollectionsBrowseSql
+            hookConfig
+            hookConfigForm
+            hookDefineAcl
+            hookDefineRoutes
+            hookHtmlPurifierFormSubmission
+            hookInitialize
+            hookInstall
+            hookItemsBatchEditCustom
+            hookItemsBrowseSql
+            hookNeatlinePublicStatic
+            hookPublicCollectionsBrowse
+            hookPublicFacets
+            hookPublicFooter
+            hookPublicHead
+            hookPublicItemsBrowse
+            hookPublicItemsShow
+            hookUninstall
+            hookUpgrade
+        For the complete list visit: https://omeka.readthedocs.io/en/latest/Reference/hooks/
+    */
 }

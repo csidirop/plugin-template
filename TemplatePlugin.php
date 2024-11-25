@@ -21,6 +21,7 @@ class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
         'uninstall',
         'config',
         'config_form',
+        'public_head',
         'define_acl',
     ];
 
@@ -121,7 +122,16 @@ class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
         $acl->deny(array('admin'), array('Template_Index'));
     }
 
-
+    /**
+     * Adds code to every public page head
+     * 
+     * @param mixed $args
+     * @return void
+     */
+    public function hookPublicHead($args): void 
+    {
+       // Code
+    }
 
     /**
      * Add the Template link to the admin main navigation.

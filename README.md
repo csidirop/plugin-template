@@ -1,6 +1,6 @@
 # Template Plugin for Omeka Classic
 
-This is a barebones plugin for Omeka Classic that provides a simple example of a plugin structure. It includes a configuration page and an admin view, offering a starting point for developing custom plugins.
+This is a barebones plugin for Omeka Classic that provides a simple example of a plugin structure. It includes a configuration page and an admin view, offering a starting point for developing custom plugins. Its based on informations from the Omeka classic tutorials: https://omeka.readthedocs.io/en/latest/Tutorials/index.html
 
 ### Features
 

@@ -1,0 +1,1 @@
+`views/admin/` for view files visible only in the Omeka admin interface

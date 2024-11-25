@@ -1,12 +1,20 @@
 <?php
-
+/**
+ *  Example of an Omeka plugin
+ * 
+ *  Omeka_Plugin_AbstractPlugin is designed to streamline common tasks for a plugin, such as defining hook and 
+ *  filter callbacks and setting options when the plugin is installed.
+ *  See: https://omeka.readthedocs.io/en/latest/Tutorials/understandingOmeka_Plugin_AbstractPlugin.html
+ */
 class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
 {
     /**
-     * @var array Hooks for the plugin.
-     * 
      * An array of hooks that this plugin will listen to. Each hook is a string
      * representing an event in Omeka's plugin architecture.
+     * 
+     * See: https://omeka.readthedocs.io/en/latest/Tutorials/understandingHooks.html
+     * 
+     * @var array Hooks for the plugin.
      */
     protected $_hooks = [
         'install',
@@ -17,10 +25,24 @@ class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
     ];
 
     /**
+     * See: https://omeka.readthedocs.io/en/latest/Tutorials/understandingFilters.html
+     * 
      * @var array Filters for the plugin.
      */
     protected $_filters = [
         'admin_navigation_main',
+    ];
+
+    /**
+     * Set plugin options during installation by defining a $_options array of name-value pairs, 
+     * then use _installOptions in the install callback and _uninstallOptions in the uninstall callback.
+     * 
+     * See: https://omeka.readthedocs.io/en/latest/Tutorials/understandingOmeka_Plugin_AbstractPlugin.html#understanding-omeka-plugin-abstractplugin
+     * 
+     * @var array
+     */
+    protected $_options = [
+        'template_option'=>'option_value'
     ];
 
     /**
@@ -30,10 +52,11 @@ class TemplatePlugin extends Omeka_Plugin_AbstractPlugin
     public function hookInstall(): void
     {
         // Add some options:
-        set_option('template_option', 'Default Value');
+        set_option('template_option_2', 'Default Value');
 
+        // Create a custom database table:
         try {
-            // Create a custom database table:
+            // Use the `_db` property in the install hook to create tables; Omeka auto-generates table names from model names.
             $sql = "
                 CREATE TABLE IF NOT EXISTS `{$this->_db->Template}` (
                     `id` INT AUTO_INCREMENT PRIMARY KEY,

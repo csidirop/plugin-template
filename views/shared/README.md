@@ -1,0 +1,1 @@
+`views/shared/` for view files available on both the admin and public sides

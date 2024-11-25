@@ -1,0 +1,1 @@
+`views/public/` for view files visible only on public pages
